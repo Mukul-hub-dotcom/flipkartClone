@@ -10,10 +10,9 @@ import {
   Button,
   styled,
 } from "@mui/material";
-import { authenticateSignup,authenticateLogin } from "../../service/api";
+import { authenticateSignup, authenticateLogin } from "../../service/api";
 
 const Component = styled(Box)`
-  height: 100%;
   width: 70vh;
   padding: 0;
   padding-top: 0;
@@ -24,7 +23,7 @@ const Imag = styled(Box)`
     url(https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png)
     center 85% no-repeat;
   width: 40%;
-  // height: 60.2vh;
+  height: 60.2vh;
   padding: 4%;
   & > p,
   & > h5 {
@@ -37,7 +36,6 @@ const Wrapper = styled(Box)`
   display: flex;
   flex: 1;
   overflow: auto;
-
   & > button,
   & > p {
     margin-top: 50;
@@ -45,12 +43,10 @@ const Wrapper = styled(Box)`
 `;
 const RightBox = styled(Box)`
   width: 60%;
-
-  // margin-right:30px;
   padding: 5%;
   Textfield,
   Typography {
-    margin-top: 30px;
+    margin-top: 10px;
   }
 `;
 
@@ -82,12 +78,12 @@ const CreateAc = styled(Typography)`
   cursor: pointer;
   color: blue;
 `;
-const Error=styled(Typography)`
+const Error = styled(Typography)`
 font-size:14px;
 margin-top:20px;
 font-weight:650
 color:#000000;
-`
+`;
 
 const signupInitialValues = {
   firstname: "",
@@ -110,20 +106,21 @@ const accInitial = {
     subHeading: "Sign up with your mobile no. to get started",
   },
 };
-const loginInitialValues={
-  email:'',
-  password:''
-}
+const loginInitialValues = {
+  email: "",
+  password: "",
+};
 const LoginDilog = ({ open, setOpen }) => {
   const [account, toggleAcc] = useState(accInitial.login);
   const [signup, setSignup] = useState(signupInitialValues);
-  const [login,setLogin]=useState(loginInitialValues)
-  const [error,setError]=useState(true)
+  const [login, setLogin] = useState(loginInitialValues);
+  const [error, setError] = useState(false);
   const { setAccount } = useContext(DataContext);
 
   const handleClose = () => {
     setOpen(false);
     toggleAcc(accInitial.login);
+    setError(false)
   };
   const toggleSignup = () => {
     toggleAcc(accInitial.signup);
@@ -148,17 +145,16 @@ const LoginDilog = ({ open, setOpen }) => {
       setAccount(signup.firstname);
     }
   };
-  const loginUser=async ()=>{
-let res= await authenticateLogin(login)
-console.log(res)
-if(res.status==200){
-  handleClose()
-  setAccount(res.data.data.firstname)
-}
-  }
-
-
-
+  const loginUser = async () => {
+    let res = await authenticateLogin(login);
+    console.log(res);
+    if (res.status == 200) {
+      handleClose();
+      setAccount(res.data.data.firstname);
+    } else {
+      setError(true);
+    }
+  };
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -179,12 +175,11 @@ if(res.status==200){
                 onChange={(e) => onValueChange(e)}
                 name="email"
               />
-              {error?<Error>Please enter valid email or password</Error>:null
-              }
-             
+              {error && <Error>Please enter valid email or password</Error>}
+
               <br />
               <TextField
-              name='password'
+                name="password"
                 onChange={(e) => onValueChange(e)}
                 variant="standard"
                 label="Enter Password"
@@ -193,7 +188,7 @@ if(res.status==200){
                 By continuing you are agreeing to flipkart's Term & condition
               </Text>
               <LoginButton onClick={loginUser}>Login</LoginButton>
-              <Typography style={{ marginLeft: 110 }}>OR</Typography>
+              <Typography style={{ marginLeft: 90 }}>OR</Typography>
               <RqstButton>Request OTP</RqstButton>
               <CreateAc onClick={() => toggleSignup()}>
                 New to flipkart? Create an account
