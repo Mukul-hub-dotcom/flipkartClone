@@ -13,3 +13,17 @@ export const getProducts = () => {
     }
   };
 };
+export const getProductDetails = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.GetProductDetailRequest });
+      const { data } = await axios.get(`${URL}/product/${id}`);
+      dispatch({ type: actionTypes.GetProductDetailSuccess, payload: data });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.GetProductDetailFail,
+        payload: error.message,
+      });
+    }
+  };
+};
