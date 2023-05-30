@@ -2,6 +2,7 @@ import Carousel from "react-multi-carousel";
 import React from "react";
 import "react-multi-carousel/lib/styles.css";
 import { Box, Button, Divider, styled, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import Countdown from "react-countdown";
 const responsive = {
   desktop: {
@@ -96,16 +97,24 @@ export const Slide = ({ products, title, timer }) => {
         centerMode={true}
       >
         {products.map((data, index) => (
-          <Box key={index} textAlign="center" style={{ padding: "25px 15px" }}>
-            <Image key={index} src={data.url} alt="banner" />
-            <Text style={{ fontWeight: 600, color: "#212121" }}>
-              {data.title.shortTitle}
-            </Text>
-            <Text style={{ color: "green" }}>{data.discount}</Text>
-            <Text style={{ fontWeight: 600, color: "#212121", opacity: ".6" }}>
-              {data.tagline}
-            </Text>
-          </Box>
+          <Link to={`product/${data.id}`}>
+            <Box
+              key={index}
+              textAlign="center"
+              style={{ padding: "25px 15px" }}
+            >
+              <Image key={index} src={data.url} alt="banner" />
+              <Text style={{ fontWeight: 600, color: "#212121" }}>
+                {data.title.shortTitle}
+              </Text>
+              <Text style={{ color: "green" }}>{data.discount}</Text>
+              <Text
+                style={{ fontWeight: 600, color: "#212121", opacity: ".6" }}
+              >
+                {data.tagline}
+              </Text>
+            </Box>
+          </Link>
         ))}
       </Carousel>
     </Component>
