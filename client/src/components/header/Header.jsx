@@ -1,7 +1,8 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, styled, Box } from "@mui/material";
+import React,{useState} from "react";
+import { AppBar,Drawer, Toolbar,List,ListItem, Typography, styled,IconButton, Box } from "@mui/material";
 import Search from "./Search";
 import CustomButton from "./CustomButton";
+import {Menu} from '@mui/icons-material'
 import { Link } from "react-router-dom";
 
 const StyledHeader = styled(AppBar)`
@@ -21,19 +22,50 @@ const Subheading = styled(Typography)`
   font-style: Italic;
 `;
 
-const But = styled(Box)`
-  margin: 0 4% 0 auto;
-`;
+const CustomButtonn = styled(Box)(({theme})=>({
+  margin: '0 4% 0 auto',
+  [theme.breakpoints.down('md')]:{
+    display:'null'
+  }
+}))
+const MenuButton = styled(IconButton)(({theme})=>({
+  display: 'none',
+  [theme.breakpoints.down('md')]:{
+    display:'block'
+  }
+}))
 
-const header = () => {
+
+const Header = () => {
   const logoURL =
     "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png";
   const subURL =
     "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png";
-  return (
+    
+  const [open,setOpen]=useState(false)
+    const handleOpen=()=>{
+setOpen(true)
+    }
+    const handleClose=()=>{
+      setOpen(false)
+    }
+    const list=()=>(
+      <Box style={{width:200}} onClick={handleClose}>
+        <List>
+          <ListItem>
+            <CustomButton/>
+          </ListItem>
+        </List>
+      </Box>
+    )
+    return (
     <div>
       <StyledHeader>
-        <Toolbar style={{ height: 55 }}>
+        <Toolbar style={{ minheight: 55 }}>
+          <MenuButton color="inherit" onClick={handleOpen}>
+            <Menu/>
+          </MenuButton>
+          <Drawer open={open} onClose={handleClose}>{list()}</Drawer>
           <Cmpnent to='/'>
             <img src={logoURL} alt="logo" style={{ width: 75 }} />
             <Subheading>
@@ -45,13 +77,13 @@ const header = () => {
             </Subheading>
           </Cmpnent>
           <Search />
-          <But>
+          <CustomButtonn>
             <CustomButton />
-          </But>
+          </CustomButtonn>
         </Toolbar>
       </StyledHeader>
     </div>
   );
 };
 
-export default header;
+export default Header;

@@ -7,21 +7,24 @@ import Profile from "./Profile.jsx";
 import { Box, Button, Typography, styled } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const Wrapper = styled(Box)`
-  display: flex;
-  & > Button,
-  & > p {
-    margin-right: 40px;
-    align-items: center;
-  }
-`;
-// Wrapper>*{
-//     margin-left:10%;
-// }
+const Wrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  "&> *": {
+    marginRight: "40px !important",
+    fontSize: 16,
+    alignItems: "center",
+  },
+  [theme.breakpoints.down("md")]: {
+    display: "block",
+  },
+}));
+const Cont = styled(Box)(({ theme }) => ({
+  display: "flex",
+  [theme.breakpoints.down("md")]: {
+    display: "block",
+  },
+}));
 
-const Cont = styled(Box)`
-  display: flex;
-`;
 const Log = styled(Button)`
   background-color: white;
   color: blue;
@@ -31,7 +34,7 @@ const Log = styled(Button)`
 
 const CustomButton = () => {
   const [open, setOpen] = useState(false);
-  const { account,setAccount } = useContext(DataContext);
+  const { account, setAccount } = useContext(DataContext);
   // const {account,setAccount}=useContext(LoginCon)
   const openDialog = () => {
     setOpen(true);
