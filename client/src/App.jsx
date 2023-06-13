@@ -4,6 +4,7 @@ import Home from "./components/home/Home";
 import DetailView from "./components/detail/DetailView";
 import { Box } from "@mui/material";
 import DataProvider from "./context/DataProvider";
+import Cart from "./components/cart/Cart";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/product/:id" element={<DetailView />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
           </Routes>
         </Box>
       </BrowserRouter>
