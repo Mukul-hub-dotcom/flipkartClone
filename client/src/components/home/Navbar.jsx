@@ -19,14 +19,16 @@ const Tex = styled(Typography)`
 
 const Navbar = () => {
   return (
-    <Compon>
-      {navData.map((data, index) => (
-        <Box key={index}>
-          <img src={data.url} alt="nav" style={{ width: 64 }} />
-          <Tex>{data.text}</Tex>
-        </Box>
-      ))}
-    </Compon>
+    <Box style={{ background: "#fff" }}>
+      <Compon>
+        {navData.map((data, index) => (
+          <Box key={index}>
+            <img src={data.url} alt="nav" style={{ width: 64 }} />
+            <Tex>{data.text}</Tex>
+          </Box>
+        ))}
+      </Compon>
+    </Box>
   );
 };
 

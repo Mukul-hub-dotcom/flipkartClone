@@ -31,10 +31,10 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const ActionItem = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [qty, setQty] = useState();
-  const {id}=product
+  const [qty, setQty] = useState(1);
+  const { id } = product;
   const addItemToCart = () => {
-    dispatch(addToCart(id,qty));
+    dispatch(addToCart(id, qty));
     navigate("/cart");
   };
   return (
